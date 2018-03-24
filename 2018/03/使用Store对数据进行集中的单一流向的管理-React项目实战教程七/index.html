@@ -1,5 +1,9 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="记录工作、生活中的点点滴滴"><title>使用Store对数据进行集中的单一流向的管理(React项目实战教程七) | 🐈猫被调戏了</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">使用Store对数据进行集中的单一流向的管理(React项目实战教程七)</h1><a id="logo" href="/.">🐈猫被调戏了</a><p class="description">记录工作、生活中的点点滴滴</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">使用Store对数据进行集中的单一流向的管理(React项目实战教程七)</h1><div class="post-meta">Mar 22, 2018<span> | </span><span class="category"><a href="/categories/前端/">前端</a></span></div><div class="post-content"><p>啥叫Redux？官方说：Redux是javascript的状态管理容器。个人理解就是它是做js数据管理的，它可以让数据沿着一个方向进入中心，然后经过中心处理后又沿着另一个方向返回。示意图大致如下：</p>
-<div class="mermaid"></div>
+<pre class="mermaid">graph LR
+A(page component) -- dispatch --> B(action)
+B --> C{Reducer}
+C --> D((Store))
+D -- state --> A</pre>
 
 <p>根据图示可以看到，Redux三个重要的内容：</p>
 <ul>
@@ -23,13 +27,7 @@
 <blockquote>
 <p>Redux并非必需使用，这个得看你项目的数据复杂程度。假如只是个小项目，请求少，数据处理量不多的情况下，不使用Redux还能降低项目文件的体积。</p>
 </blockquote>
-<script>
-        var codes = ["\ngraph LR\nA(page component) -- dispatch --> B(action)\nB --> C{Reducer}\nC --> D((Store))\nD -- state --> A\n"];
-        for(var i = 0; i <= codes.length - 1; i++) {
-          document.getElementsByClassName('mermaid')[i].innerHTML = codes[i];
-        }
-      </script>
-      <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script><script>
+<script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script><script>
         if (window.mermaid) {
           mermaid.initialize({"version":"7.1.2","enable":true,"theme":"forest","logLevel":5,"startOnLoad":true,"arrowMarkerAbsolute":false,"flowchart":{"htmlLabels":true,"useMaxWidth":true,"curve":"linear"},"sequence":{"diagramMarginX":50,"diagramMarginY":10,"actorMargin":50,"width":150,"height":65,"boxMargin":10,"boxTextMargin":5,"noteMargin":10,"messageMargin":35,"mirrorActors":true,"bottomMarginAdj":1,"useMaxWidth":true},"gantt":{"titleTopMargin":25,"barHeight":20,"barGap":4,"topPadding":50,"leftPadding":75,"gridLineStartPadding":35,"fontSize":11,"fontFamily":"\"Open-Sans\", \"sans-serif\"","numberSectionStyles":4,"axisFormat":"%Y-%m-%d"},"class":{},"git":{}});
         }
