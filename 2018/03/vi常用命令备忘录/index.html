@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="记录工作、生活中的点点滴滴"><title>vi常用命令备忘录 | 🐈猫被调戏了</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">vi常用命令备忘录</h1><a id="logo" href="/.">🐈猫被调戏了</a><p class="description">记录工作、生活中的点点滴滴</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">vi常用命令备忘录</h1><div class="post-meta">Mar 28, 2018<span> | </span><span class="category"><a href="/categories/工具/">工具</a></span></div><div class="post-content"><h3 id="进入vi"><a href="#进入vi" class="headerlink" title="进入vi"></a>进入vi</h3><p><code>vi [filename]</code> # 打开或新建文件，并将光标置于第一行首</p>
+<p><code>vi +n [filename]</code> # 打开文件，并将光标置于第n行首</p>
+<p><code>vi + [filename]</code> # 打开文件，并将光标置于最后一行首</p>
+<p><code>vi +/pattern [filename]</code> # 打开文件，并将光标置于第一个与pattern匹配的串处</p>
+<p><code>vi -r [filename]</code> # 在上次正用vi编辑时发生系统崩溃，恢复filename</p>
+<p><code>vi [filename]....[filename]</code> # 打开多个文件，依次进行编辑</p>
+<h3 id="保存退出"><a href="#保存退出" class="headerlink" title="保存退出"></a>保存退出</h3><p><code>w</code> # 保存当前文件 </p>
+<p><code>w /tmp1</code> # 另存为/tmp1 </p>
+<p><code>20,59w /tmp1</code> # 仅将20-59行之间的内存另存为/tmp1 </p>
+<p><code>x</code> 或 <code>wq</code> # 保存退出 </p>
+<p><code>q</code> # 退出vi </p>
+<p><code>q!</code> # 退出不保存 </p>
+<p><code>!command</code> # 执行shell命令command </p>
+<p><code>n1,n2 w !command</code> # 将文件中n1行至n2行的内容作为command的输入并执行之，若不指定n1，n2，则表示将整个文件内容作为command的输入 </p>
+<p><code>r !command</code> # 将命令command的输出结果放到当前行 </p>
+<p><code>w !sudo tee %</code> # 保存没权限时，可获取权限再保存 </p>
+<h3 id="光标移动"><a href="#光标移动" class="headerlink" title="光标移动"></a>光标移动</h3><p><code>h</code> # 光标左移一个字符 </p>
+<p><code>l</code> # 光标右移一个字符 </p>
+<p><code>space</code> # 光标右移一个字符 </p>
+<p><code>Backspace</code> # 光标左移一个字符 </p>
+<p><code>k</code> 或 <code>Ctrl+p</code> # 光标上移一行 </p>
+<p><code>j</code> 或 <code>Ctrl+n</code> # 光标下移一行 </p>
+<p><code>Enter</code> # 光标下移一行 </p>
+<p><code>w</code> 或 <code>W</code> # 光标右移一个字至字首 </p>
+<p><code>b</code> 或 <code>B</code> # 光标左移一个字至字首 </p>
+<p><code>e</code> 或 <code>E</code> # 光标右移一个字至字尾 </p>
+<p><code>)</code> # 光标移至句尾 </p>
+<p><code>(</code> # 光标移至句首 </p>
+<p><code>}</code> # 光标移至段落开头 </p>
+<p><code>{</code> # 光标移至段落结尾 </p>
+<p><code>nG</code> # 光标移至第n行首 </p>
+<p><code>n+</code> # 光标下移n行 </p>
+<p><code>n-</code> # 光标上移n行 </p>
+<p><code>n$</code> # 光标移至第n行尾 </p>
+<p><code>H</code> # 光标移至屏幕顶行 </p>
+<p><code>M</code> # 光标移至屏幕中间行 </p>
+<p><code>L</code> # 光标移至屏幕最后行 </p>
+<p><code>0</code> # （注意是数字零）光标移至当前行首 </p>
+<p><code>$</code> # 光标移至当前行尾 </p>
+<h3 id="屏幕翻滚"><a href="#屏幕翻滚" class="headerlink" title="屏幕翻滚"></a>屏幕翻滚</h3><p><code>Ctrl+u</code> # 向文件首翻半屏 </p>
+<p><code>Ctrl+d</code> # 向文件尾翻半屏 </p>
+<p><code>Ctrl+f</code> # 向文件尾翻一屏 </p>
+<p><code>Ctrl＋b</code> # 向文件首翻一屏 </p>
+<p><code>nz</code> # 将第n行滚至屏幕顶部，不指定n时将当前行滚至屏幕顶部 </p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p><code>i</code> # 在光标前 </p>
+<p><code>I</code> # 在当前行首 </p>
+<p><code>a</code> # 光标后 </p>
+<p><code>A</code> # 在当前行尾 </p>
+<p><code>o</code> # 在当前行之下新开一行 </p>
+<p><code>O</code> # 在当前行之上新开一行 </p>
+<p><code>r</code> # 替换当前字符 </p>
+<p><code>R</code> # 替换当前字符及其后的字符，直至按ESC键 </p>
+<p><code>s</code> # 从当前光标位置处开始，以输入的文本替代指定数目的字符 </p>
+<p><code>S</code> # 删除指定数目的行，并以所输入文本代替之 </p>
+<p><code>ncw</code> 或 <code>nCW</code> # 修改指定数目的字 </p>
+<p><code>nCC</code> # 修改指定数目的行 </p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p><code>ndw</code> 或 <code>ndW</code> # 删除光标处开始及其后的n-1个字 </p>
+<p><code>do</code> 或 <code>dd</code> # 删至行首 </p>
+<p><code>d$</code> # 删至行尾 </p>
+<p><code>ndd</code> # 删除当前行及其后n-1行 </p>
+<p><code>x</code> 或 <code>X</code> # 删除一个字符，x删除光标后的，而X删除光标前的 </p>
+<p><code>Ctrl+u</code> # 删除输入方式下所输入的文本 </p>
+<p><code>n1,n2 d</code> # 将n1行到n2行之间的内容删除 </p>
+<p><code>%d</code> # 删除全部内容 </p>
+<p><code>1,$d</code> # 删除全部内容 </p>
+<h3 id="复制粘贴、剪切、移动"><a href="#复制粘贴、剪切、移动" class="headerlink" title="复制粘贴、剪切、移动"></a>复制粘贴、剪切、移动</h3><p><code>yy</code> # 复制当前行 </p>
+<p><code>nyy</code> # 复制当前行开始的n行 </p>
+<p>先按 v 然后方向键选择区域，按 y 复制选中行 </p>
+<p><code>dd</code> # 剪切当前行 </p>
+<p><code>p（小）</code> # 在当前光标处下面粘贴内容。 </p>
+<p><code>P（大）</code> # 在当前光标处上面粘贴内容 </p>
+<p><code>n1,n2 co n3</code> # 将n1行到n2行之间的内容拷贝到第n3行下 </p>
+<p><code>n1,n2 m n3</code> # 将n1行到n2行之间的内容移至到第n3行下 </p>
+<h3 id="搜索（查找）"><a href="#搜索（查找）" class="headerlink" title="搜索（查找）"></a>搜索（查找）</h3><p><code>/abc</code> # 从光标开始处向文件尾搜索abc </p>
+<p><code>?abc</code> # 从光标开始处向文件首搜索abc </p>
+<p><code>/\/abc</code> # 从光标开始处向文件尾搜索/abc，其中/是转义 </p>
+<p><code>n</code> # 在同一方向重复上一次搜索命令 </p>
+<p><code>N</code> # 在反方向上重复上一次搜索命令 </p>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><p><code>s/vivian/sky/</code> # 替换当前行第一个 vivian 为 sky </p>
+<p><code>s/vivian/sky/g</code> # 替换当前行所有 vivian 为 sky </p>
+<p><code>n,$s/vivian/sky/</code> # 替换第 n 行开始到最后一行中每一行的第一个 vivian 为 sky </p>
+<p><code>n,$s/vivian/sky/g</code> # 替换第 n 行开始到最后一行中每一行所有 vivian 为sky </p>
+<p><code>%s/vivian/sky/g</code> # （等同于 g/vivian/s//sky/） 替换每一行的每一个 vivian 为 sky </p>
+<p><code>s#vivian/#sky/#</code> # 替换当前行第一个 vivian/ 为 sky/（可以使用 #或+作为分隔符，此时中间出现的 / 不会作为分隔符） </p>
+<p><code>s/p1/p2/g</code> # 将当前行中所有p1均用p2替代 </p>
+<p><code>n1,n2s/p1/p2/g</code> # 将第n1至n2行中所有p1均用p2替代 </p>
+<p><code>g/p1/s//p2/g</code> # 将文件中所有p1均用p2替换 </p>
+<h3 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h3><p><code>&quot;?nyy</code> # 将当前行及其下n行的内容保存到寄存器？中，其中?为一个字母，n为一个数字 </p>
+<p><code>&quot;?nyw</code> # 将当前行及其下n个字保存到寄存器？中，其中?为一个字母，n为一个数字 </p>
+<p><code>&quot;?nyl</code> # 将当前行及其下n个字符保存到寄存器？中，其中?为一个字母，n为一个数字 </p>
+<p><code>&quot;?p</code> # 取出寄存器？中的内容并将其放到光标位置处。这里？可以是一个字母，也可以是一个数字 </p>
+<p><code>ndd</code> # 将当前行及其下共n行文本删除，并将所删内容放到1号删除寄存器中。 </p>
+<h3 id="选项设置"><a href="#选项设置" class="headerlink" title="选项设置"></a>选项设置</h3><p><code>set number</code> # 显示行号 </p>
+<p><code>set number!</code> # 不显示行号，其它选项同理加！号 </p>
+<p><code>set all</code> # 列出所有选项设置情况 </p>
+<p><code>set term</code> # 设置终端类型 </p>
+<p><code>set ignorance</code> # 在搜索中忽略大小写 </p>
+<p><code>set list</code> # 显示制表位(Ctrl+I)和行尾标志（$) </p>
+<p><code>set report</code> # 显示由面向行的命令修改过的数目 </p>
+<p><code>set terse</code> # 显示简短的警告信息 </p>
+<p><code>set warn</code> # 在转到别的文件时若没保存当前文件则显示NO write信息 </p>
+<p><code>set nomagic</code> # 允许在搜索模式中，使用前面不带“”的特殊字符 </p>
+<p><code>set nowrapscan</code> # 禁止vi在搜索到达文件两端时，又从另一端开始 </p>
+<p><code>set mesg</code> # 允许vi显示其他用户用write写到自己终端上的信息 </p>
+<blockquote>
+<p>参考资料来源：<a href="https://www.cnblogs.com/mondol/p/vi-examples.html">vi命令示例大全</a>、<a href="http://man.linuxde.net/vi">vi命令</a></p>
+</blockquote>
+</div><iframe src="/donate/?AliPayQR=null&amp;WeChatQR=/img/WeChatQR.jpeg&amp;GitHub=https://github.com/webappdevelp&amp;BTCQR=null&amp;BTCKEY=null&amp;PayPal=null" style="overflow-x:hidden; overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;" frameborder="0" scrolling="no"></iframe><div class="tags"><a href="/tags/vi/">vi</a></div><div class="post-nav"><a class="next" href="/2018/03/hexo-filter-mermaid-diagrams插件开发杂谈/">hexo-filter-mermaid-diagrams插件开发杂谈</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/插件/">插件</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/插件/杂谈/">杂谈</a><span class="category-list-count">1</span></li></ul></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/vi/" style="font-size: 15px;">vi</a> <a href="/tags/React/" style="font-size: 15px;">React</a> <a href="/tags/hexo-filter-mermaid-diagrams/" style="font-size: 15px;">hexo-filter-mermaid-diagrams</a> <a href="/tags/iTerm2/" style="font-size: 15px;">iTerm2</a> <a href="/tags/zsh/" style="font-size: 15px;">zsh</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/vscode/" style="font-size: 15px;">vscode</a> <a href="/tags/emmet/" style="font-size: 15px;">emmet</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Typescript/" style="font-size: 15px;">Typescript</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a></div></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">🐈猫被调戏了.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
