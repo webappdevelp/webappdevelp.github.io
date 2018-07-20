@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="啥叫Redux？官方说：Redux是javascript的状态管理容器。个人理解就是它是做js数据管理的，它可以让数据沿着一个方向进入中心，然后经过中心处理后又沿着另一个方向返回。示意图大致如下： graph LR A(page component) -- dispatch --&amp;gt; B(action) B --&amp;gt; C{Reducer} C --&amp;gt; D((Store)) D -- state --&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mermaid class diagram">
+<meta property="og:url" content="http://yoursite.com/2018/07/mermaid-class-diagram/index.html">
+<meta property="og:site_name" content="🐈猫被调戏了">
+<meta property="og:description" content="啥叫Redux？官方说：Redux是javascript的状态管理容器。个人理解就是它是做js数据管理的，它可以让数据沿着一个方向进入中心，然后经过中心处理后又沿着另一个方向返回。示意图大致如下： graph LR A(page component) -- dispatch --&amp;gt; B(action) B --&amp;gt; C{Reducer} C --&amp;gt; D((Store)) D -- state --&amp;gt;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-20T14:48:11.219Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mermaid class diagram">
+<meta name="twitter:description" content="啥叫Redux？官方说：Redux是javascript的状态管理容器。个人理解就是它是做js数据管理的，它可以让数据沿着一个方向进入中心，然后经过中心处理后又沿着另一个方向返回。示意图大致如下： graph LR A(page component) -- dispatch --&amp;gt; B(action) B --&amp;gt; C{Reducer} C --&amp;gt; D((Store)) D -- state --&amp;gt;">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/mermaid-class-diagram/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>mermaid class diagram | 🐈猫被调戏了</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🐈猫被调戏了</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">记录工作、生活中的点点滴滴</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/mermaid-class-diagram/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank">
+      <meta itemprop="description" content="记录工作、生活中的点点滴滴">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🐈猫被调戏了">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mermaid class diagram
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-20 22:46:09 / 修改时间：22:48:11" itemprop="dateCreated datePublished" datetime="2018-07-20T22:46:09+08:00">2018-07-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>啥叫Redux？官方说：Redux是javascript的状态管理容器。个人理解就是它是做js数据管理的，它可以让数据沿着一个方向进入中心，然后经过中心处理后又沿着另一个方向返回。示意图大致如下：</p>
+<pre class="mermaid">graph LR
+A(page component) -- dispatch --> B(action)
+B --> C{Reducer}
+C --> D((Store))
+D -- state --> A</pre>
+
+<p>根据图示可以看到，Redux三个重要的内容：</p>
+<ul>
+<li>action</li>
+<li>reducer</li>
+<li>store</li>
+</ul>
+<p>在开始之前有必要去官方文档看哈子–&gt;<a href="http://www.redux.org.cn/">Redux中文版</a>、<a href="https://redux.js.org/">官方英文版</a>。</p>
+<pre class="mermaid">classDiagram
+Class01 <|-- AveryLongClass : Cool
+Class03 *-- Class04
+Class05 o-- Class06
+Class07 .. Class08
+Class09 --> C2 : Where am i?
+Class09 --* C3
+Class09 --|> Class07
+Class07 : equals()
+Class07 : Object[] elementData
+Class01 : size()
+Class01 : int chimp
+Class01 : int gorilla
+Class08 <--> C2: Cool label</pre>
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>react项目里面使用redux需要用到react-redux，它的作用是将component与store相关联，使得我们能够通过dispatch达到修改state的目的。<br>先来安装redux相关的依赖包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add redux react-redux</span><br></pre></td></tr></table></figure></p>
+<p>安装好了之后，我们就要规划action、reducer和store的管理。所以，我在项目目录<strong>src/</strong>下面建了个<strong>redux</strong>目录，然后分别建了<strong>actions</strong>、<strong>reducers</strong>和<strong>store</strong>目录。</p>
+<h3 id="创建Action"><a href="#创建Action" class="headerlink" title="创建Action"></a>创建Action</h3><p>在actions目录下面我们建一个<strong>home.js</strong>：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> HOME_INDEX = <span class="string">'HOME_INDEX'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getHomeIndexData = <span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    type: HOME_INDEX,</span><br><span class="line">    data: &#123; ...params &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建Reducer"><a href="#创建Reducer" class="headerlink" title="创建Reducer"></a>创建Reducer</h3><p>在reducers目录下面新建<strong>home.js</strong>，然后引入home的action：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; HOME_INDEX &#125; <span class="keyword">from</span> <span class="string">'../actions/home'</span>;</span><br><span class="line"><span class="keyword">let</span> initState = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> HomeReducer = <span class="function">(<span class="params">state = initState, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">  <span class="keyword">case</span> HOME_INDEX:</span><br><span class="line">    <span class="keyword">return</span> &#123; ...state, ...action.data &#125;;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> HomeReducer;</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建Store"><a href="#创建Store" class="headerlink" title="创建Store"></a>创建Store</h3><p>在store目录下面新建<strong>index.js</strong>，然后将home的reducer引入到store：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> HomeReducer <span class="keyword">from</span> <span class="string">'../reducers/home'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Store = createStore(HomeReducer);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Store;</span><br></pre></td></tr></table></figure></p>
+<p>也可以看到，这里引入了redux的createStore方法将所有的reducer都丢给了redux处理。</p>
+<h3 id="修改APP"><a href="#修改APP" class="headerlink" title="修改APP"></a>修改APP</h3><p>打开app.js，然后把store传入进来：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</span><br><span class="line"><span class="keyword">import</span> Routes <span class="keyword">from</span> <span class="string">'./routes'</span>;</span><br><span class="line"><span class="keyword">import</span> Store <span class="keyword">from</span> <span class="string">'./redux/store'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;Provider store=&#123;Store&#125;&gt;</span><br><span class="line">        &#123;Routes&#125;</span><br><span class="line">      &lt;<span class="regexp">/Provider&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure></p>
+<p>到目前为止，我们已经将reducer扔给了redux，也将store回传给了app。那么我们的组件要怎么接收store，和向reducer广播内容呢？下面就需要修改页面组件了。</p>
+<h3 id="修改Home-page"><a href="#修改Home-page" class="headerlink" title="修改Home page"></a>修改Home page</h3><p>打开views/home/index.js，然后引入<strong>connect</strong>，并设置state的提取及接收dispatch的方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> PropTypes <span class="keyword">from</span> <span class="string">'prop-types'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getHomeIndexData &#125; <span class="keyword">from</span> <span class="string">'../../redux/actions/home'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.less'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Home</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    <span class="keyword">this</span>.props.getInit(&#123;</span><br><span class="line">      info: <span class="string">'首页内容'</span>,</span><br><span class="line">      title: <span class="string">'首页'</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"home"</span>&gt;</span><br><span class="line">        &lt;div className=<span class="string">"home-text"</span>&gt;&#123;<span class="keyword">this</span>.props.info&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Home.propTypes = &#123;</span><br><span class="line">  info: PropTypes.string.isRequired,</span><br><span class="line">  getInit: PropTypes.func.isRequired,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">&#123; home &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; ...home &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function"><span class="params">dispatch</span> =&gt;</span> (&#123;</span><br><span class="line">  getInit: <span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(getHomeIndexData(params));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(Home);</span><br></pre></td></tr></table></figure></p>
+<p>这里需要理解一下：state和dispatch是同时都会在组件的props里面的。</p>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>到此，我们的redux就已经在项目里面接好了，使用<code>yarn start</code>启动下看看Home是不是已经成功接收到了经过redux处理过的state。</p>
+<p><a href="https://github.com/gaearon/redux-devtools">Redux-DevTools</a>工具可以让你更直观的查看state经过redux的变化。</p>
+<blockquote>
+<p>Redux并非必需使用，这个得看你项目的数据复杂程度。假如只是个小项目，请求少，数据处理量不多的情况下，不使用Redux还能降低项目文件的体积。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/微信小程序canvas利用网络图片画图之坑/" rel="next" title="微信小程序canvas利用网络图片画图之坑">
+                <i class="fa fa-chevron-left"></i> 微信小程序canvas利用网络图片画图之坑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Frank</p>
+              <p class="site-description motion-element" itemprop="description">记录工作、生活中的点点滴滴</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Action"><span class="nav-number">2.</span> <span class="nav-text">创建Action</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Reducer"><span class="nav-number">3.</span> <span class="nav-text">创建Reducer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Store"><span class="nav-number">4.</span> <span class="nav-text">创建Store</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改APP"><span class="nav-number">5.</span> <span class="nav-text">修改APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改Home-page"><span class="nav-number">6.</span> <span class="nav-text">修改Home page</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行"><span class="nav-number">7.</span> <span class="nav-text">运行</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Frank</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.5.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"forest","logLevel":5,"startOnLoad":true,"arrowMarkerAbsolute":false,"flowchart":{"htmlLabels":true,"useMaxWidth":true,"curve":"linear"},"sequence":{"diagramMarginX":50,"diagramMarginY":10,"actorMargin":50,"width":150,"height":65,"boxMargin":10,"boxTextMargin":5,"noteMargin":10,"messageMargin":35,"mirrorActors":true,"bottomMarginAdj":1,"useMaxWidth":true},"gantt":{"titleTopMargin":25,"barHeight":20,"barGap":4,"topPadding":50,"leftPadding":75,"gridLineStartPadding":35,"fontSize":11,"fontFamily":"\"Open-Sans\", \"sans-serif\"","numberSectionStyles":4,"axisFormat":"%Y-%m-%d"}});
+    }
+  </script>
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
